@@ -26,7 +26,7 @@ function appBrain(value) {
     } else if (value === "AC") {
         cleanScreen();
     } else if (value === "Erase") {
-        updateDisplay();
+        eraseChar();
     } else if (value === "=") {
 
         parseInt(number1, 10);
@@ -89,4 +89,17 @@ function cleanScreen() {
     operation = "";
     number1 = ""; 
     number2 = "";
+}
+
+function eraseChar() {
+    const arr = Array.from(screenValue.textContent);
+    
+    if (arr[arr.length - 1] === " ") { //Because of how i made the app, when a user inputs an operator it leaves 1 space before & after it so here i remove all of it
+        arr.splice(arr.length - 3, 3);
+        operation = "";
+    } else {
+        arr.splice(arr.length - 1, 1);
+    }
+
+    screenValue.textContent = `${arr.join("")}`
 }
