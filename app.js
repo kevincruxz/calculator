@@ -19,28 +19,27 @@ let operation = "", number1 = "", number2 = "";
 function appBrain(value) {
     if (value === "+" || value === "-" || value === "x" || value === "/") {
 
-        if (operation !== "") return;
-        screenValue.textContent += ` ${value} `
-        operation = value;
+        if (operation !== "" && number2 === "") {
+            return;
+        } else if (operation !== "" && number2 !== ""){
+            operatorChecker();
+            screenValue.textContent = resultValue.textContent;
+            number1 = resultValue.textContent;
+            screenValue.textContent += ` ${value} `
+            operation = value;
+        } else {
+            screenValue.textContent += ` ${value} `
+            operation = value;
+        }
 
     } else if (value === "AC") {
         cleanScreen();
     } else if (value === "Erase") {
         eraseChar();
     } else if (value === "=") {
-
-        parseInt(number1, 10);
-        parseInt(number2, 10);
-        if (operation === "+" && number1 !== "" && number2 !== "") {
-            add(number1, number2);
-        } else if (operation === "-" && number1 !== "" && number2 !== "") {
-            substract(number1, number2);
-        } else if (operation === "x" && number1 !== "" && number2 !== "") {
-            multiply(number1, number2);
-        } else {
-            divide(number1, number2);
-        }
-
+        operatorChecker();
+        screenValue.textContent = "0";
+        operation = "";
     } else {
 
         if (operation === "") {
@@ -59,27 +58,49 @@ function appBrain(value) {
     }
 }
 
+function operatorChecker() {
+    let int1 = parseInt(number1, 10);
+    let int2 = parseInt(number2, 10);
+    if (operation === "+" && number1 !== "" && number2 !== "") {
+        add(int1, int2);
+    } else if (operation === "-" && number1 !== "" && number2 !== "") {
+        substract(int1, int2);
+    } else if (operation === "x" && number1 !== "" && number2 !== "") {
+        multiply(int1, int2);
+    } else {
+        divide(int1, int2);
+    }
+}
+
 function add(digit1, digit2) {
     let op = digit1 + digit2;
     resultValue.textContent = `${op}`;
+    number1 = "";
+    number2 = "";
     return; 
 }
 
 function substract(digit1, digit2) {
     let op = digit1 - digit2;
     resultValue.textContent = `${op}`;
+    number1 = "";
+    number2 = "";
     return; 
 }
 
 function multiply(digit1, digit2) {
     let op = digit1 * digit2;
     resultValue.textContent = `${op}`;
+    number1 = "";
+    number2 = "";
     return; 
 }
 
 function divide(digit1, digit2) {
     let op = digit1 / digit2;
     resultValue.textContent = `${op}`;
+    number1 = "";
+    number2 = "";
     return; 
 }
 
