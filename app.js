@@ -40,6 +40,12 @@ function appBrain(value) {
         operatorChecker();
         screenValue.textContent = "0";
         operation = "";
+    } else if (value === ".") {
+        if (operation === "") {
+            doubleDotBlocker(1);
+        } else {
+            doubleDotBlocker(2);
+        }
     } else {
 
         if (operation === "") {
@@ -59,8 +65,8 @@ function appBrain(value) {
 }
 
 function operatorChecker() {
-    let int1 = parseInt(number1, 10);
-    let int2 = parseInt(number2, 10);
+    let int1 = Number(number1);
+    let int2 = Number(number2);
     if (operation === "+" && number1 !== "" && number2 !== "") {
         add(int1, int2);
     } else if (operation === "-" && number1 !== "" && number2 !== "") {
@@ -123,4 +129,22 @@ function eraseChar() {
     }
 
     screenValue.textContent = `${arr.join("")}`
+}
+
+function doubleDotBlocker(num) {
+    if (num === 1) {
+        const arr = Array.from(number1);
+        let isPoint = arr.some(point => point === ".");
+        if (!isPoint) {
+            number1 += ".";
+            screenValue.textContent += "."
+        }
+    } else {
+        const arr = Array.from(number2);
+        let isPoint = arr.some(point => point === ".");
+        if (!isPoint) {
+            number2 += ".";
+            screenValue.textContent += "."
+        }
+    }
 }
