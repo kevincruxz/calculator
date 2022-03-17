@@ -14,7 +14,7 @@ function init() {
     });
 }
 
-let operation = "", number1 = "", number2 = "";
+let operation = "", number1 = "", number2 = "", resultOnScreen = false;
 
 function appBrain(value) {
     if (value === "+" || value === "-" || value === "x" || value === "/") {
@@ -27,6 +27,12 @@ function appBrain(value) {
             number1 = resultValue.textContent;
             screenValue.textContent += ` ${value} `
             operation = value;
+        } else if (resultOnScreen === true) {
+            screenValue.textContent = resultValue.textContent;
+            number1 = resultValue.textContent;
+            screenValue.textContent += ` ${value} `
+            operation = value;
+            resultOnScreen = false;
         } else {
             screenValue.textContent += ` ${value} `
             operation = value;
@@ -38,7 +44,7 @@ function appBrain(value) {
         eraseChar();
     } else if (value === "=") {
         operatorChecker();
-        screenValue.textContent = "0";
+        resultOnScreen = true;
         operation = "";
     } else if (value === ".") {
         if (operation === "") {
@@ -49,13 +55,17 @@ function appBrain(value) {
     } else {
 
         if (operation === "") {
-            if (screenValue.textContent !== "0") {
+            if (resultOnScreen === true) {
+                screenValue.textContent = `${value}`
+                number1 += value;
+                resultOnScreen = false;
+            }else if (screenValue.textContent !== "0") {
                 screenValue.textContent += `${value}`;
                 number1 += value;
             }else {
                 screenValue.textContent = `${value}`;
                 number1 += value;
-            }
+            } 
         } else {
             screenValue.textContent += `${value}`
             number2 += value;
