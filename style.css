@@ -1,8 +1,14 @@
+body {
+    background-color: black
+}
+
 .calculator {
-    width: 600px;
-    height: 600px;
-    background-color: aqua;
+    width: 43rem;
+    height: 43rem;
+    background-color: black;
     margin: auto;
+    border: 2px solid white;
+    border-radius: 15px;
 }
 
 .content {
@@ -12,44 +18,52 @@
 }
 
 .screen {
-    width: 500px;
-    height: 100px;
-    background-color: white;
+    width: 35rem;
+    height: 5rem;
+    background-color: black;
     margin-top: 30px;
+    color: gold;
+    border: 1px solid white;
     display: flex;
     justify-content: space-between;
 }
 
 .results {
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 .buttons {
     display: flex;
     gap: 20px;
-    width: 500px;
+    width: 35rem;
     justify-content: center;
     flex-direction: column;
+    color: azure;
 }
 
 .button {
-    border: solid 1px;
-    width: 117px;
-    height: 117px;
+    border: solid 1px white;
+    width: 6rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .edit-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 30px;
 }
 
 .edit-buttons div {
     width: 235px;
+    height: 50px;
 }
 
 .op-buttons {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 3rem;
 }

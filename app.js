@@ -12,6 +12,27 @@ function init() {
             appBrain(value);
         });
     });
+
+    document.addEventListener('keydown', function(e) {
+        let key = e.key
+        button.forEach((div) => {
+            if (div.textContent === key || key === "*") {
+                if (key === "*") {
+                    value = "x";
+                } else {
+                    value = key;
+                }
+                appBrain(value);
+            } else if (key === "Enter") {
+                value = "=";
+                appBrain(value);
+            } else if (key === "Backspace") {
+                value = "Erase";
+                appBrain(value);
+                key = "";
+            }
+        }); 
+    });
 }
 
 let operation = "", number1 = "", number2 = "", resultOnScreen = false;
@@ -41,16 +62,27 @@ function appBrain(value) {
     } else if (value === "AC") {
         cleanScreen();
     } else if (value === "Erase") {
-        eraseChar();
+        if (resultOnScreen === true) return;
+        else {
+            if (operation === "") {
+                eraseChar(1);
+            } else {
+                eraseChar(2);
+            }
+        }
     } else if (value === "=") {
+        if (resultOnScreen === true) return;
         operatorChecker();
         resultOnScreen = true;
         operation = "";
     } else if (value === ".") {
-        if (operation === "") {
-            doubleDotBlocker(1);
-        } else {
-            doubleDotBlocker(2);
+        if (resultOnScreen === true) return;
+        else {
+            if (operation === "") {
+                doubleDotBlocker(1);
+            } else {
+                doubleDotBlocker(2);
+            }
         }
     } else {
 
@@ -128,7 +160,7 @@ function cleanScreen() {
     number2 = "";
 }
 
-function eraseChar() {
+function eraseChar(num) {
     const arr = Array.from(screenValue.textContent);
     
     if (arr[arr.length - 1] === " ") { //Because of how i made the app, when a user inputs an operator it leaves 1 space before & after it so here i remove all of it
@@ -139,22 +171,27 @@ function eraseChar() {
     }
 
     screenValue.textContent = `${arr.join("")}`
+    if (num === 1) {
+        number1 = `${arr.join("")}`;
+    } else {
+        number2 = `${arr.join("")}`;
+    }
 }
 
 function doubleDotBlocker(num) {
+    let arr = [];
     if (num === 1) {
-        const arr = Array.from(number1);
-        let isPoint = arr.some(point => point === ".");
-        if (!isPoint) {
-            number1 += ".";
-            screenValue.textContent += "."
-        }
+        arr = Array.from(number1);
     } else {
-        const arr = Array.from(number2);
-        let isPoint = arr.some(point => point === ".");
-        if (!isPoint) {
+        arr = Array.from(number2);
+    }
+    let isPoint = arr.some(point => point === ".");
+    if (!isPoint) {
+        if (num === 1) {
+            number1 += ".";
+        } else {
             number2 += ".";
-            screenValue.textContent += "."
         }
+        screenValue.textContent += "."
     }
 }
