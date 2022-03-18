@@ -32,6 +32,8 @@ function init() {
                 value = "=";
                 equal.classList.add('pressed');
                 appBrain(value);
+            } else if (key === "Backspace" && resultOnScreen === true) {
+                cleanScreen();
             } else if (key === "Backspace") {
                 value = "ERASE";
                 div.classList.add('pressed');
@@ -42,11 +44,6 @@ function init() {
     });
 
     document.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'transform') return;
-        e.target.classList.remove('pressed');
-    });
-
-    document.addEventListener('keyup', (e) => {
         if (e.propertyName !== 'transform') return;
         e.target.classList.remove('pressed');
     });
@@ -179,19 +176,26 @@ function cleanScreen() {
 
 function eraseChar(num) {
     const arr = Array.from(screenValue.textContent);
+    let numArray = [];
+    if (num === 1) {
+        numArray = Array.from(number1);
+    } else {
+        numArray = Array.from(number2);
+    }
     
     if (arr[arr.length - 1] === " ") { //Because of how i made the app, when a user inputs an operator it leaves 1 space before & after it so here i remove all of it
         arr.splice(arr.length - 3, 3);
         operation = "";
     } else {
+        numArray.splice(numArray.length - 1, 1);
         arr.splice(arr.length - 1, 1);
     }
 
     screenValue.textContent = `${arr.join("")}`
     if (num === 1) {
-        number1 = `${arr.join("")}`;
+        number1 = `${numArray.join("")}`;
     } else {
-        number2 = `${arr.join("")}`;
+        number2 = `${numArray.join("")}`;
     }
 }
 
