@@ -27,7 +27,7 @@ function init() {
                 value = "=";
                 appBrain(value);
             } else if (key === "Backspace") {
-                value = "Erase";
+                value = "ERASE";
                 appBrain(value);
                 key = "";
             }
@@ -59,9 +59,9 @@ function appBrain(value) {
             operation = value;
         }
 
-    } else if (value === "AC") {
+    } else if (value === "CLEAR") {
         cleanScreen();
-    } else if (value === "Erase") {
+    } else if (value === "ERASE") {
         if (resultOnScreen === true) return;
         else {
             if (operation === "") {
