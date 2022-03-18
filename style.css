@@ -7,7 +7,7 @@ body {
 
 .calculator {
     width: 43rem;
-    height: 43rem;
+    height: 44rem;
     background-color: black;
     margin: auto;
     border: 2px solid white;
@@ -24,16 +24,17 @@ body {
 }
 
 .screen {
-    width: 34rem;
+    width: 33.5rem;
     height: 5rem;
     background-color: black;
     margin-top: 30px;
     color: gold;
-    border: 1px solid white;
+    border: 3px solid white;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
     font-size: 25px;
+    margin-left: 6px;
 }
 
 .results {
@@ -57,8 +58,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 4px 0px 0px 1px white;
+    box-shadow: 4px 0px 0px 0px white;
+    border-bottom: 2px solid white;
     font-size: 35px;
+    transition: 0.08s;
+}
+
+.pressed {
+    box-shadow: 0px 0px 0px 0px white;
+    transform: scale(0.93);
 }
 
 .edit-buttons {
@@ -78,3 +86,18 @@ body {
     flex-wrap: wrap;
     gap: 2.9rem;
 }
+
+footer {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+*.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+ }

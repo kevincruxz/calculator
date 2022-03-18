@@ -8,6 +8,7 @@ function init() {
 
     button.forEach(div => {
         div.addEventListener('click', (e) => {
+            e.target.classList.add('pressed');
             value = div.textContent;
             appBrain(value);
         });
@@ -19,19 +20,35 @@ function init() {
             if (div.textContent === key || key === "*") {
                 if (key === "*") {
                     value = "x";
+                    let mult = document.querySelector('.mult');
+                    mult.classList.add('pressed');
                 } else {
                     value = key;
+                    div.classList.add('pressed');
                 }
                 appBrain(value);
             } else if (key === "Enter") {
+                let equal = document.querySelector('.equal');
                 value = "=";
+                equal.classList.add('pressed');
                 appBrain(value);
             } else if (key === "Backspace") {
                 value = "ERASE";
+                div.classList.add('pressed');
                 appBrain(value);
                 key = "";
             }
         }); 
+    });
+
+    document.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'transform') return;
+        e.target.classList.remove('pressed');
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.propertyName !== 'transform') return;
+        e.target.classList.remove('pressed');
     });
 }
 
